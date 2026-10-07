@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f6f1">
+  <meta name="description" content="接住突然想到的小事，轻轻推你向前一步。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="app.css">
+  <title>顺手 · 生活小事接收器</title>
+</head>
+<body>
+  <div class="ambient ambient-mint"></div><div class="ambient ambient-pink"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#today" aria-label="顺手首页"><span class="brand-mark">✳</span><span>顺手</span></a>
+      <div class="top-date" id="topDate"></div>
+      <button class="avatar" aria-label="个人空间">零</button>
+    </header>
+
+    <main>
+      <section class="view active" id="view-today" aria-labelledby="greeting">
+        <div class="hero-copy">
+          <p class="eyebrow">给生活一点轻轻的推动</p>
+          <h1 id="greeting">早上好，零<span class="wave">☁️</span></h1>
+          <p class="subcopy">不用一下做完所有事，先顺手一件就好。</p>
+        </div>
+        <button class="capture-card glass" id="captureOpen" aria-label="快速记下一件事">
+          <span class="capture-icon">＋</span><span class="capture-placeholder">突然想到什么？先放在这里…</span>
+        </button>
+        <div class="section-heading"><div><p class="eyebrow">今天只看这一小步</p><h2>今日聚焦 <span id="focusCount" class="count-pill">0 / 3</span></h2></div><button class="text-button" data-nav="pool">全部小事 ↗</button></div>
+        <div id="focusList" class="task-list"></div>
+        <div class="soft-note glass"><span class="note-sparkle">✦</span><div><strong>完成一件，就已经很好</strong><p>小小地向前，也是在向前。</p></div><span class="note-flower">❋</span></div>
+        <div class="section-heading inbox-heading"><div><p class="eyebrow">还没决定什么时候做</p><h2>刚刚收下 <span id="inboxCount" class="count-pill">0</span></h2></div><button class="text-button" data-nav="pool">整理一下 ↗</button></div>
+        <div id="recentList" class="task-list compact-list"></div>
+      </section>
+
+      <section class="view" id="view-pool" aria-labelledby="poolTitle">
+        <div class="hero-copy compact-hero"><p class="eyebrow">先接住，再慢慢安排</p><h1 id="poolTitle">小事收纳篮 <span class="basket-emoji">🧺</span></h1><p class="subcopy">这里没有逾期的压力，只有等你有空时再看的念头。</p></div>
+        <button class="capture-card glass pool-capture" id="captureOpenPool"><span class="capture-icon">＋</span><span class="capture-placeholder">再记一件小事…</span></button>
+        <div class="filter-row" role="tablist"><button class="filter active" data-filter="all">全部 <span id="allCount">0</span></button><button class="filter" data-filter="buy">想买的</button><button class="filter" data-filter="do">要做的</button><button class="filter" data-filter="idea">随手记</button></div>
+        <div id="poolList" class="task-list"></div>
+        <div id="emptyPool" class="empty-state glass hidden"><span>🌱</span><strong>篮子很轻，刚刚好</strong><p>突然想到什么，就先丢进来。</p></div>
+      </section>
+
+      <section class="view" id="view-decide" aria-labelledby="decideTitle">
+        <div class="hero-copy compact-hero"><p class="eyebrow">把纠结变成一个小小的下一步</p><h1 id="decideTitle">决定小帮手 <span class="decision-sparkle">✧</span></h1><p class="subcopy">不替你做人生决定，只帮你从原地动起来。</p></div>
+        <div class="decision-card glass">
+          <label for="decisionQuestion">你正在纠结什么？</label><input id="decisionQuestion" class="soft-input" placeholder="比如：今天要不要去散步？">
+          <label for="decisionOptions" class="options-label">把选项写下来 <span>每行一个，至少两个</span></label><textarea id="decisionOptions" class="soft-input option-input" rows="3" placeholder="去散步&#10;在家休息"></textarea>
+          <div class="decision-actions"><button class="button secondary" id="coinFlip">✦ 给我一个随机推力</button><button class="button primary" id="chooseForMe">帮我选一下</button></div>
+          <div id="decisionResult" class="decision-result hidden" aria-live="polite"></div>
+        </div>
+        <div class="tip-card"><span>☁️</span><p><strong>一个小提示</strong><br>如果两个选项都可以，先选那个更容易开始的。</p></div>
+        <div class="decision-shortcuts"><button class="glass" data-decision="buy">🛍️　要不要买这个？</button><button class="glass" data-decision="do">🌿　现在做还是稍后？</button></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav glass" aria-label="主导航">
+      <button class="nav-item active" data-nav="today"><span class="nav-icon">⌂</span><span>今天</span></button>
+      <button class="nav-item" data-nav="pool"><span class="nav-icon">▤</span><span>小事篮</span><i id="navBadge" class="nav-badge hidden"></i></button>
+      <button class="nav-item" data-nav="decide"><span class="nav-icon">✧</span><span>帮我决定</span></button>
+      <button class="nav-item capture-nav" id="captureNav" aria-label="快速捕捉"><span>＋</span></button>
+    </nav>
+  </div>
+
+  <dialog id="captureDialog" class="capture-dialog glass">
+    <form method="dialog" id="captureForm">
+      <div class="dialog-top"><span class="eyebrow">先记下来，其他以后再说</span><button class="close-button" type="button" aria-label="关闭">×</button></div>
+      <h2>接住这个念头</h2>
+      <input id="taskTitle" class="soft-input capture-input" maxlength="90" placeholder="比如：买洗衣液、给妈妈回电话…" required>
+      <div class="type-picker"><button type="button" class="type-chip active" data-type="do">☀️ 要做</button><button type="button" class="type-chip" data-type="buy">🛍️ 想买</button><button type="button" class="type-chip" data-type="idea">✎ 随手记</button></div>
+      <div class="reminder-line"><div><strong>什么时候提醒我？</strong><small>也可以先不安排</small></div><select id="reminderChoice" class="reminder-select"><option value="">暂时不用</option><option value="hour">一小时后</option><option value="evening">今天晚上</option><option value="tomorrow">明天上午</option></select></div>
+      <button class="button primary save-button" value="save">先收下　→</button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

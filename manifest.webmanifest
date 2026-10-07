@@ -1,0 +1,11 @@
+{
+  "name": "顺手 · 生活小事接收器",
+  "short_name": "顺手",
+  "description": "接住突然想到的小事，轻轻推你向前一步。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8f6f1",
+  "theme_color": "#f8f6f1",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
