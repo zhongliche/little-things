@@ -14,6 +14,7 @@ const typeInfo = {buy:['想买','🛍️'],do:['要做','☀️'],idea:['随手�
 
 function readTasks(){try{const saved=localStorage.getItem(KEY);return saved?JSON.parse(saved):starter}catch{return starter}}
 function save(){localStorage.setItem(KEY,JSON.stringify(tasks));render()}
+function updateGreeting(){const hour=new Date().getHours();const greeting=hour<5||hour>=23?'夜深了':hour<11?'早上好':hour<13?'中午好':hour<18?'下午好':'晚上好';const title=$('#greeting');if(title?.firstChild)title.firstChild.textContent=`${greeting}，零`}
 function dateLabel(){const d=new Date();return `${d.getMonth()+1}月${d.getDate()}日 · ${['周日','周一','周二','周三','周四','周五','周六'][d.getDay()]}`}
 function reminderLabel(value){if(!value)return '';const time=new Date(value);if(time<new Date())return '现在可以看一下';return `${time.getMonth()+1}/${time.getDate()} ${String(time.getHours()).padStart(2,'0')}:${String(time.getMinutes()).padStart(2,'0')}`}
 function esc(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -59,4 +60,6 @@ $$('[data-decision]').forEach(b=>b.addEventListener('click',()=>{navigate('decid
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminders()});
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();openCapture()}});
 if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+updateGreeting();
+setInterval(updateGreeting,60*1000);
 render();
